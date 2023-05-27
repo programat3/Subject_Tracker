@@ -1,0 +1,38 @@
+body{
+    margin: 0;
+    font-family: 'Inria Serif', serif;
+    background-color: white;
+}
+table, td, th {
+    border: 1px solid white;
+    background-color: rgb(42, 41, 41);
+    color: azure;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    height: 30px;
+}
+
+td {
+    text-align: center;
+    padding: 5px;
+}
+
+form{
+    padding: 0px 45%;
+}
+
+.small{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.box{
+    padding: 2%;
+}

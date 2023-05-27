@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>{{s_id}}</title>
+{% endblock %}
+
+{% block body %}
+{% if tasks|length < 1 %}
+    <h3>There are no tasks for this subject</h3>
+
+{% else %}
+    <p>
+        <table>
+        <tr>
+            <th>Name of the Task</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Complete</th>
+            <th>Delete</th>
+        </tr>
+        {% for task in tasks %}
+        <tr>
+            <td>
+                {{task.name_task}}
+            </td>
+            <td>
+                <p>
+                    {{ task.start_time.time().hour}}
+                    :
+                    {{ task.start_time.time().minute}}
+                </p>
+            </td>
+            <td>
+                {%if task.end_time%}
+                    <p>
+                        {{ task.end_time.time().hour}}
+                        :
+                        {{ task.end_time.time().minute}}
+                    </p>
+                {%else%}
+                    <p>Not Finished Yet</p>
+                {%endif%}
+            </td>
+            <td>
+                <form action="/complete/{{s_id}}/{{task.id}}" method="post">
+                    <input type="submit" value="Complete">
+                </form>
+            </td>
+            <td>
+                <form action="/delete/{{s_id}}/{{task.id}}" method="post">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+        {%endfor%}
+    </table>
+    </p>
+{% endif %}
+
+<form action="/add_task/{{s_id}}" method="post">
+    <input type="text" name="content" id="content">
+    <input type="submit" value="Add Task to Subject">
+</form>
+<a href="/">Go Back</a>
+{% endblock %}

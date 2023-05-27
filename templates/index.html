@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Subject Managment</title>
+{% endblock %}
+
+{% block body %}
+
+<h1 style="text-align: center;">Your Subject Managment Tool</h1>
+    {% if subjects|length < 1 %}
+        <h4 style="text-align: center;">There are no Subjects to work on yet</h4>
+        {% else %}
+    <div class="small">
+    {% for subject in subjects %}
+        {%set hours_worked = namespace(value=0)%}
+        {%set minutes_worked = namespace(value=0)%}
+        <div class="box">
+            <h2> {{subject.name}} </h2>
+            <a class="page_loader" href="/add_task/{{subject.id}}">Go to subject page</a>
+            <br>
+            <a href="/delete_subject/{{subject.id}}">Delete</a>
+            <br>
+            <a href="/update_subject/{{subject.id}}">Update</a>
+            <h3>Time Worked:
+                {%for task in subject.tasks%}
+                    {%if task.end_time%}
+                        {%set hours_worked.value = hours_worked.value + (task.end_time.hour - task.start_time.hour)%}
+                        {%set minutes_worked.value = minutes_worked.value + (task.end_time.minute - task.start_time.minute)%}
+                    {%endif%}
+                {%endfor%}
+                {{hours_worked.value}}
+                hours & 
+                {{minutes_worked.value}}
+                minute(s)
+            </h3>
+        </div>
+    {%endfor%}
+    </div>
+    {%endif%}
+    <form action="/" method="post">
+        <input type="text" name="content" id="content">
+        <input type="submit" value="Add Subject">
+    </form>
+{% endblock %}
