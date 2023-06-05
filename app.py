@@ -15,6 +15,7 @@ class Subject(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), nullable=False)
     time_worked = db.Column(db.Integer, nullable=False, default=0)
+    color = db.Column(db.String())
     tasks = db.relationship('Task', backref='subject')
     def __repr__(self):
         return '<Subject %r>' % self.id
@@ -34,7 +35,8 @@ class Task(db.Model):
 def index():
     if request.method == "POST":
         subject_content = request.form["content"]
-        new_subject = Subject(name = subject_content)
+        subject_color = request.form["color"]
+        new_subject = Subject(name = subject_content, color=subject_color)
         try:
            db.session.add(new_subject)
            db.session.commit()

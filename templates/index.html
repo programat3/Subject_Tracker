@@ -6,22 +6,22 @@
 
 {% block body %}
 
-<h1 style="text-align: center;">Your Subject Managment Tool</h1>
+<h1 class="banner" style="text-align: center;">Your Subject Managment Tool</h1>
+<br>
+<br>
     {% if subjects|length < 1 %}
         <h4 style="text-align: center;">There are no Subjects to work on yet</h4>
         {% else %}
-    <div class="small">
+    <div class="container">
+        <div class="row">
     {% for subject in subjects %}
         {%set hours_worked = namespace(value=0)%}
         {%set minutes_worked = namespace(value=0)%}
-        <div class="box">
-            <h2> {{subject.name}} </h2>
-            <a class="page_loader" href="/add_task/{{subject.id}}">Go to subject page</a>
-            <br>
-            <a href="/delete_subject/{{subject.id}}">Delete</a>
-            <br>
-            <a href="/update_subject/{{subject.id}}">Update</a>
-            <h3>Time Worked:
+        <div class="card" style="margin: 4%;">
+            <div class="card-img-top" style="width:300px;height:300px;background-color:{{subject.color}}"></div>
+            <div class="card-body">
+            <h2 class = "card-title" style="text-align: center;"> {{subject.name}} </h2>
+            <p class="card-subtitle mb-2">Time Worked:
                 {%for task in subject.tasks%}
                     {%if task.end_time%}
                         {%set hours_worked.value = hours_worked.value + (task.end_time.hour - task.start_time.hour)%}
@@ -32,13 +32,29 @@
                 hours & 
                 {{minutes_worked.value}}
                 minute(s)
-            </h3>
+            </p>
+            <a class="btn btn-primary" href="/add_task/{{subject.id}}">Go to subject page</a>
+            <br>
+            <a class="btn btn-secondary" href="/update_subject/{{subject.id}}">Update</a>
+            <br>
+            <a class="btn btn-danger" href="/delete_subject/{{subject.id}}">Delete</a>
+            
+        </div>
         </div>
     {%endfor%}
     </div>
+    </div>
     {%endif%}
     <form action="/" method="post">
+        <div class="form-group">
+        <label for="content">Name of the Subject</label>
         <input type="text" name="content" id="content">
-        <input type="submit" value="Add Subject">
+        </div>
+        <div>
+        <label for="color">Choose the color</label>
+        <input type="color" name="color" id="color">
+        </div>
+        <button type="submit" class="btn btn-primary">Add your Subject</button>
+        
     </form>
 {% endblock %}

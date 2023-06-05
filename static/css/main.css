@@ -3,6 +3,11 @@ body{
     font-family: 'Inria Serif', serif;
     background-color: white;
 }
+.banner{
+    padding: 1%;
+    background-color: black;
+    color: white;
+}
 table, td, th {
     border: 1px solid white;
     background-color: rgb(42, 41, 41);
@@ -25,14 +30,4 @@ td {
 
 form{
     padding: 0px 45%;
-}
-
-.small{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-.box{
-    padding: 2%;
 }
